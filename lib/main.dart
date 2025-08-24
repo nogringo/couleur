@@ -1,9 +1,11 @@
+import 'package:couleur/config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ndk/ndk.dart';
 import 'package:couleur/repository.dart';
+import 'package:couleur/controllers/theme_controller.dart';
 import 'package:couleur/screens/chat/chat_screen.dart';
 import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
 import 'package:nostr_widgets/nostr_widgets.dart';
@@ -46,6 +48,7 @@ void main() async {
   await nRestoreAccounts(ndk);
 
   Get.put(Repository());
+  Get.put(ThemeController());
 
   Repository.to.listenRooms();
 
@@ -78,13 +81,15 @@ class MainApp extends StatelessWidget {
           );
         }
 
-        final app = GetMaterialApp(
-          title: "Nostr chat",
-          localizationsDelegates: [nostr_widgets.AppLocalizations.delegate],
-          theme: getTheme(),
-          darkTheme: getTheme(Brightness.dark),
-          themeMode: ThemeMode.system,
-          home: ChatScreen(),
+        final app = Obx(
+          () => GetMaterialApp(
+            title: appTitle,
+            localizationsDelegates: [nostr_widgets.AppLocalizations.delegate],
+            theme: getTheme(),
+            darkTheme: getTheme(Brightness.dark),
+            themeMode: ThemeController.to.themeMode,
+            home: ChatScreen(),
+          ),
         );
 
         if (!kIsWeb && GetPlatform.isDesktop) {
