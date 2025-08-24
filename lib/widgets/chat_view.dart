@@ -6,6 +6,7 @@ import 'package:nip19/nip19.dart';
 import 'package:couleur/repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:couleur/l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -71,6 +72,28 @@ class MessageView extends StatelessWidget {
         message.content.contains('lnbc') ||
         message.content.contains('lntb') ||
         message.content.contains('lnbcrt');
+
+    // Format the message timestamp
+    final messageTime = DateTime.fromMillisecondsSinceEpoch(
+      message.createdAt * 1000,
+    );
+    final now = DateTime.now();
+    final difference = now.difference(messageTime);
+
+    String formattedTime;
+    if (difference.inDays == 0) {
+      // Today - show time only
+      formattedTime = DateFormat('HH:mm').format(messageTime);
+    } else if (difference.inDays == 1) {
+      // Yesterday
+      formattedTime = 'Yesterday ${DateFormat('HH:mm').format(messageTime)}';
+    } else if (difference.inDays < 7) {
+      // This week - show day name and time
+      formattedTime = DateFormat('E HH:mm').format(messageTime);
+    } else {
+      // Older - show date and time
+      formattedTime = DateFormat('MMM d, HH:mm').format(messageTime);
+    }
 
     return ListTile(
       title: Row(
@@ -202,6 +225,16 @@ class MessageView extends StatelessWidget {
                 },
               );
             },
+          ),
+          SizedBox(width: 8),
+          Text(
+            formattedTime,
+            style: TextStyle(
+              fontSize: 12,
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
           ),
           Spacer(),
         ],
