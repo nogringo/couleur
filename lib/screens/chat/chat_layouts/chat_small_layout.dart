@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:couleur/controllers/auth_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class ChatSmallLayout extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: DragToMoveArea(
-          child: GetBuilder<Repository>(
+          child: GetBuilder<AuthController>(
             builder: (c) {
               return AppBar(
                 backgroundColor: Colors.transparent,

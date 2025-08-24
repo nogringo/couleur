@@ -1,4 +1,5 @@
 import 'package:couleur/config.dart';
+import 'package:couleur/controllers/auth_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,7 @@ void main() async {
 
   await nRestoreAccounts(ndk);
 
+  Get.put(AuthController());
   Get.put(Repository());
   Get.put(ThemeController());
 

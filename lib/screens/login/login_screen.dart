@@ -1,3 +1,4 @@
+import 'package:couleur/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
               enablePubkeyLogin: false,
               onLoggedIn: () {
                 Get.back();
-                Repository.to.update();
+                AuthController.to.update();
               },
             ),
           ),

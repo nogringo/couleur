@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:couleur/controllers/auth_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class ChatLargeLayout extends StatelessWidget {
           children: [
             SideBarView(),
             Expanded(
-              child: GetBuilder<Repository>(
+              child: GetBuilder<AuthController>(
                 builder: (c) {
                   return Column(
                     children: [
