@@ -1,0 +1,82 @@
+{
+  "@@locale": "en",
+  "appTitle": "Couleur",
+  "@appTitle": {
+    "description": "Application title"
+  },
+  "login": "Login",
+  "@login": {
+    "description": "Login button text"
+  },
+  "message": "Message",
+  "@message": {
+    "description": "Message input field hint"
+  },
+  "viewProfile": "View Profile",
+  "@viewProfile": {
+    "description": "View profile menu option"
+  },
+  "mention": "Mention",
+  "@mention": {
+    "description": "Mention user menu option"
+  },
+  "muteUser": "Mute User",
+  "@muteUser": {
+    "description": "Mute user menu option"
+  },
+  "cashuToken": "Cashu Token",
+  "@cashuToken": {
+    "description": "Label for Cashu token"
+  },
+  "lightningInvoice": "Lightning Invoice",
+  "@lightningInvoice": {
+    "description": "Label for Lightning invoice"
+  },
+  "lightningInvoiceWithAmount": "Lightning Invoice: {amount} sats",
+  "@lightningInvoiceWithAmount": {
+    "description": "Lightning invoice with amount",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "addRoom": "Add Room",
+  "@addRoom": {
+    "description": "Add room dialog title"
+  },
+  "enterRoomName": "Enter room name",
+  "@enterRoomName": {
+    "description": "Room name input hint"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "join": "Join",
+  "@join": {
+    "description": "Join button text"
+  },
+  "themeMode": "Theme Mode",
+  "@themeMode": {
+    "description": "Theme mode setting title"
+  },
+  "anonymousUser": "Anon#{uid}",
+  "@anonymousUser": {
+    "description": "Anonymous user name format",
+    "placeholders": {
+      "uid": {
+        "type": "String"
+      }
+    }
+  },
+  "roomPrefix": "#{room}",
+  "@roomPrefix": {
+    "description": "Room name with hashtag prefix",
+    "placeholders": {
+      "room": {
+        "type": "String"
+      }
+    }
+  }
+}

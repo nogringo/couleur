@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "appTitle": "Couleur",
+  "login": "Войти",
+  "message": "Сообщение",
+  "viewProfile": "Просмотр профиля",
+  "mention": "Упомянуть",
+  "muteUser": "Заглушить пользователя",
+  "cashuToken": "Токен Cashu",
+  "lightningInvoice": "Lightning счёт",
+  "lightningInvoiceWithAmount": "Lightning счёт: {amount} сатоши",
+  "addRoom": "Добавить комнату",
+  "enterRoomName": "Введите название комнаты",
+  "cancel": "Отмена",
+  "join": "Присоединиться",
+  "themeMode": "Режим темы",
+  "anonymousUser": "Аноним#{uid}",
+  "roomPrefix": "#{room}"
+}

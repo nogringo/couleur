@@ -8,9 +8,11 @@ import 'package:couleur/repository.dart';
 import 'package:couleur/controllers/theme_controller.dart';
 import 'package:couleur/screens/chat/chat_screen.dart';
 import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
+import 'package:nostr_widgets/l10n/app_localizations.dart';
 import 'package:nostr_widgets/nostr_widgets.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:system_theme/system_theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class NoEventVerifier extends EventVerifier {
   @override
@@ -85,7 +87,13 @@ class MainApp extends StatelessWidget {
           () => GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: appTitle,
-            localizationsDelegates: [nostr_widgets.AppLocalizations.delegate],
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              nostr_widgets.AppLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
             theme: getTheme(),
             darkTheme: getTheme(Brightness.dark),
             themeMode: ThemeController.to.themeMode,

@@ -9,6 +9,7 @@ import 'package:couleur/widgets/profile_picture_button_view.dart';
 import 'package:couleur/widgets/send_field_view.dart';
 import 'package:couleur/widgets/side_bar_view.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:couleur/l10n/app_localizations.dart';
 
 class ChatSmallLayout extends StatelessWidget {
   const ChatSmallLayout({super.key});
@@ -28,7 +29,7 @@ class ChatSmallLayout extends StatelessWidget {
                   () => Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('#${Repository.to.selectedRoom.value}'),
+                      Text(AppLocalizations.of(context)?.roomPrefix(Repository.to.selectedRoom.value) ?? '#${Repository.to.selectedRoom.value}'),
                       IconButton(
                         onPressed: () => Repository.to.toggleStarRoom(
                           Repository.to.selectedRoom.value,
@@ -51,7 +52,7 @@ class ChatSmallLayout extends StatelessWidget {
                       onPressed: () {
                         Get.to(LoginScreen());
                       },
-                      child: Text("Login"),
+                      child: Text(AppLocalizations.of(context)?.login ?? "Login"),
                     ),
                   if (Repository.ndk.accounts.isLoggedIn)
                     ProfilePictureButtonView(),

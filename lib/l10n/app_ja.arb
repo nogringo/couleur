@@ -1,0 +1,19 @@
+{
+  "@@locale": "ja",
+  "appTitle": "Couleur",
+  "login": "ログイン",
+  "message": "メッセージ",
+  "viewProfile": "プロフィールを見る",
+  "mention": "メンション",
+  "muteUser": "ユーザーをミュート",
+  "cashuToken": "Cashuトークン",
+  "lightningInvoice": "Lightning請求書",
+  "lightningInvoiceWithAmount": "Lightning請求書: {amount} サトシ",
+  "addRoom": "ルームを追加",
+  "enterRoomName": "ルーム名を入力",
+  "cancel": "キャンセル",
+  "join": "参加",
+  "themeMode": "テーマモード",
+  "anonymousUser": "匿名#{uid}",
+  "roomPrefix": "#{room}"
+}

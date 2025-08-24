@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "appTitle": "Couleur",
+  "login": "Iniciar sesión",
+  "message": "Mensaje",
+  "viewProfile": "Ver perfil",
+  "mention": "Mencionar",
+  "muteUser": "Silenciar usuario",
+  "cashuToken": "Token Cashu",
+  "lightningInvoice": "Factura Lightning",
+  "lightningInvoiceWithAmount": "Factura Lightning: {amount} sats",
+  "addRoom": "Agregar sala",
+  "enterRoomName": "Ingrese el nombre de la sala",
+  "cancel": "Cancelar",
+  "join": "Unirse",
+  "themeMode": "Modo de tema",
+  "anonymousUser": "Anon#{uid}",
+  "roomPrefix": "#{room}"
+}

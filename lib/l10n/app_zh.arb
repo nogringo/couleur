@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh",
+  "appTitle": "Couleur",
+  "login": "登录",
+  "message": "消息",
+  "viewProfile": "查看资料",
+  "mention": "提及",
+  "muteUser": "屏蔽用户",
+  "cashuToken": "Cashu代币",
+  "lightningInvoice": "闪电发票",
+  "lightningInvoiceWithAmount": "闪电发票：{amount} 聪",
+  "addRoom": "添加房间",
+  "enterRoomName": "输入房间名称",
+  "cancel": "取消",
+  "join": "加入",
+  "themeMode": "主题模式",
+  "anonymousUser": "匿名#{uid}",
+  "roomPrefix": "#{room}"
+}

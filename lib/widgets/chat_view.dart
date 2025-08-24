@@ -5,6 +5,7 @@ import 'package:ndk/entities.dart';
 import 'package:nip19/nip19.dart';
 import 'package:couleur/repository.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:couleur/l10n/app_localizations.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -100,7 +101,7 @@ class MessageView extends StatelessWidget {
                         children: [
                           Icon(Icons.person, size: 20),
                           SizedBox(width: 8),
-                          Text('View Profile'),
+                          Text(AppLocalizations.of(context)?.viewProfile ?? 'View Profile'),
                         ],
                       ),
                       onTap: () async {
@@ -120,7 +121,7 @@ class MessageView extends StatelessWidget {
                         children: [
                           Icon(Icons.alternate_email, size: 20),
                           SizedBox(width: 8),
-                          Text('Mention'),
+                          Text(AppLocalizations.of(context)?.mention ?? 'Mention'),
                         ],
                       ),
                       onTap: () {
@@ -147,7 +148,7 @@ class MessageView extends StatelessWidget {
                         children: [
                           Icon(Icons.volume_off, size: 20),
                           SizedBox(width: 8),
-                          Text('Mute User'),
+                          Text(AppLocalizations.of(context)?.muteUser ?? 'Mute User'),
                         ],
                       ),
                       onTap: () {
@@ -242,7 +243,7 @@ class MessageView extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         Text(
-                          'Cashu Token',
+                          AppLocalizations.of(context)?.cashuToken ?? 'Cashu Token',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -329,7 +330,9 @@ class MessageView extends StatelessWidget {
                             ),
                             SizedBox(width: 8),
                             Text(
-                              'Lightning Invoice$amountText',
+                              amountText.isNotEmpty
+                                ? (AppLocalizations.of(context)?.lightningInvoiceWithAmount(amountText.replaceAll(': ', '').replaceAll(' sats', '')) ?? 'Lightning Invoice$amountText')
+                                : (AppLocalizations.of(context)?.lightningInvoice ?? 'Lightning Invoice'),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.bold,
