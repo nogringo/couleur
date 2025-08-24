@@ -8,6 +8,7 @@ Ephemeral chat
 
 - Multi relays
 - Room based chat
+- Star room
 - Mute user
 - Embed cashu tokens and lightning invoices
 
