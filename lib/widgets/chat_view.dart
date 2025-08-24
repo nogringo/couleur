@@ -75,7 +75,7 @@ class MessageView extends StatelessWidget {
     return ListTile(
       title: Row(
         children: [
-          Expanded(
+          Flexible(
             child: GestureDetector(
               onTapDown: (details) {
                 showMenu(
@@ -203,6 +203,7 @@ class MessageView extends StatelessWidget {
               );
             },
           ),
+          Spacer(),
         ],
       ),
       subtitle: (hasCashuToken || hasLightningInvoice)
