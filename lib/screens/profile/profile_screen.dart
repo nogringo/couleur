@@ -73,6 +73,29 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () async {
+                    final url = Uri.parse(
+                      'https://nosta.me/b22b06b051fd5232966a9344a634d956c3dc33a7f5ecdcad9ed11ddc4120a7f2',
+                    );
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(
+                        url,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    }
+                  },
+                  child: Card(
+                    margin: EdgeInsets.all(0),
+                    child: ListTile(
+                      leading: Icon(Icons.favorite),
+                      title: Text('Support & Contact'),
+                      subtitle: Text('Donate or get in touch via Nostr'),
+                      trailing: Icon(Icons.open_in_new),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
