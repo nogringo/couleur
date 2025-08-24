@@ -14,7 +14,9 @@ dependencies:
   ndk: ^0.5.0
   nip19: ^0.2.0
   nostr_widgets: ^0.0.3
+  system_theme: ^3.1.2
   url_launcher: ^6.3.2
+  window_manager: ^0.5.1
 
 dev_dependencies:
   flutter_test:

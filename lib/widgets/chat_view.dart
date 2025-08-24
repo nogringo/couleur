@@ -135,7 +135,8 @@ class MessageView extends StatelessWidget {
                             .sendFieldController
                             .selection = TextSelection.fromPosition(
                           TextPosition(
-                            offset: Repository.to.sendFieldController.text.length,
+                            offset:
+                                Repository.to.sendFieldController.text.length,
                           ),
                         );
                         Repository.to.sendFieldFocusNode.requestFocus();
@@ -308,16 +309,14 @@ class MessageView extends StatelessWidget {
                       return Container(
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primaryContainer
-                              .withValues(alpha: 0.3),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primaryContainer.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: 0.3),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.3),
                           ),
                         ),
                         child: Row(

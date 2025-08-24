@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,6 +7,8 @@ import 'package:couleur/repository.dart';
 import 'package:couleur/screens/chat/chat_screen.dart';
 import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
 import 'package:nostr_widgets/nostr_widgets.dart';
+import 'package:window_manager/window_manager.dart';
+import 'package:system_theme/system_theme.dart';
 
 class NoEventVerifier extends EventVerifier {
   @override
@@ -16,6 +19,13 @@ class NoEventVerifier extends EventVerifier {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (!kIsWeb && GetPlatform.isDesktop) {
+    await windowManager.ensureInitialized();
+    await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
+  }
+
+  await SystemTheme.accentColor.load();
 
   await GetStorage.init();
 
@@ -47,24 +57,45 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "Nostr chat",
-      localizationsDelegates: [nostr_widgets.AppLocalizations.delegate],
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.teal,
-          brightness: Brightness.light,
-        ),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.teal,
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
-      home: ChatScreen(),
+    return SystemThemeBuilder(
+      builder: (context, accent) {
+        final supportAccentColor = defaultTargetPlatform.supportsAccentColor;
+        Color accentColor = supportAccentColor ? accent.accent : Colors.teal;
+        if (kIsWeb) accentColor = Colors.teal;
+
+        ThemeData getTheme([Brightness? brightness]) {
+          brightness = brightness ?? Brightness.light;
+
+          final colorScheme = ColorScheme.fromSeed(
+            seedColor: accentColor,
+            brightness: brightness,
+          );
+
+          return ThemeData(
+            colorScheme: colorScheme,
+            brightness: brightness,
+            useMaterial3: true,
+          );
+        }
+
+        final app = GetMaterialApp(
+          title: "Nostr chat",
+          localizationsDelegates: [nostr_widgets.AppLocalizations.delegate],
+          theme: getTheme(),
+          darkTheme: getTheme(Brightness.dark),
+          themeMode: ThemeMode.system,
+          home: ChatScreen(),
+        );
+
+        if (!kIsWeb && GetPlatform.isDesktop) {
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: DragToResizeArea(child: app),
+          );
+        }
+
+        return app;
+      },
     );
   }
 }
