@@ -41,6 +41,7 @@ class _AddRoomDialogState extends State<AddRoomDialog> {
       title: Text(AppLocalizations.of(context)?.addRoom ?? 'Add Room'),
       content: TextField(
         controller: _roomNameController,
+        autofocus: true,
         decoration: InputDecoration(
           labelText: 'Room Name',
           hintText:
