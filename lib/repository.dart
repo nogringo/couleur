@@ -105,8 +105,17 @@ class Repository extends GetxController {
     update();
   }
 
-  sendMessage() {
+  sendMessage() async {
+    final pubkey = ndk.accounts.getPublicKey();
+
+    if (pubkey == null) return;
     if (sendFieldController.text.isEmpty) return;
+
+    String? nTag;
+    final metadata = await ndk.metadata.loadMetadata(pubkey);
+    if (metadata != null) {
+      nTag = metadata.displayName ?? metadata.name;
+    }
 
     final isGeoHash = selectedRoom.startsWith("bc_");
     final kind = isGeoHash ? 20000 : 23333;
@@ -117,6 +126,7 @@ class Repository extends GetxController {
       kind: kind,
       tags: [
         [tag, room],
+        if (nTag != null) ["n", nTag],
       ],
       content: sendFieldController.text,
     );
