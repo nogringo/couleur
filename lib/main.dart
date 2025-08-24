@@ -83,6 +83,7 @@ class MainApp extends StatelessWidget {
 
         final app = Obx(
           () => GetMaterialApp(
+            debugShowCheckedModeBanner: false,
             title: appTitle,
             localizationsDelegates: [nostr_widgets.AppLocalizations.delegate],
             theme: getTheme(),
