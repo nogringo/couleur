@@ -43,7 +43,8 @@ class _AddRoomDialogState extends State<AddRoomDialog> {
         controller: _roomNameController,
         decoration: InputDecoration(
           labelText: 'Room Name',
-          hintText: AppLocalizations.of(context)?.enterRoomName ?? 'Enter room name',
+          hintText:
+              AppLocalizations.of(context)?.enterRoomName ?? 'Enter room name',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),

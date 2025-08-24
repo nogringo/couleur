@@ -101,7 +101,10 @@ class MessageView extends StatelessWidget {
                         children: [
                           Icon(Icons.person, size: 20),
                           SizedBox(width: 8),
-                          Text(AppLocalizations.of(context)?.viewProfile ?? 'View Profile'),
+                          Text(
+                            AppLocalizations.of(context)?.viewProfile ??
+                                'View Profile',
+                          ),
                         ],
                       ),
                       onTap: () async {
@@ -121,7 +124,9 @@ class MessageView extends StatelessWidget {
                         children: [
                           Icon(Icons.alternate_email, size: 20),
                           SizedBox(width: 8),
-                          Text(AppLocalizations.of(context)?.mention ?? 'Mention'),
+                          Text(
+                            AppLocalizations.of(context)?.mention ?? 'Mention',
+                          ),
                         ],
                       ),
                       onTap: () {
@@ -148,7 +153,10 @@ class MessageView extends StatelessWidget {
                         children: [
                           Icon(Icons.volume_off, size: 20),
                           SizedBox(width: 8),
-                          Text(AppLocalizations.of(context)?.muteUser ?? 'Mute User'),
+                          Text(
+                            AppLocalizations.of(context)?.muteUser ??
+                                'Mute User',
+                          ),
                         ],
                       ),
                       onTap: () {
@@ -243,7 +251,8 @@ class MessageView extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         Text(
-                          AppLocalizations.of(context)?.cashuToken ?? 'Cashu Token',
+                          AppLocalizations.of(context)?.cashuToken ??
+                              'Cashu Token',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -331,8 +340,18 @@ class MessageView extends StatelessWidget {
                             SizedBox(width: 8),
                             Text(
                               amountText.isNotEmpty
-                                ? (AppLocalizations.of(context)?.lightningInvoiceWithAmount(amountText.replaceAll(': ', '').replaceAll(' sats', '')) ?? 'Lightning Invoice$amountText')
-                                : (AppLocalizations.of(context)?.lightningInvoice ?? 'Lightning Invoice'),
+                                  ? (AppLocalizations.of(
+                                          context,
+                                        )?.lightningInvoiceWithAmount(
+                                          amountText
+                                              .replaceAll(': ', '')
+                                              .replaceAll(' sats', ''),
+                                        ) ??
+                                        'Lightning Invoice$amountText')
+                                  : (AppLocalizations.of(
+                                          context,
+                                        )?.lightningInvoice ??
+                                        'Lightning Invoice'),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.bold,

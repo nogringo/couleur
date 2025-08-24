@@ -34,7 +34,12 @@ class ChatLargeLayout extends StatelessWidget {
                             () => Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(AppLocalizations.of(context)?.roomPrefix(Repository.to.selectedRoom.value) ?? '#${Repository.to.selectedRoom.value}'),
+                                Text(
+                                  AppLocalizations.of(context)?.roomPrefix(
+                                        Repository.to.selectedRoom.value,
+                                      ) ??
+                                      '#${Repository.to.selectedRoom.value}',
+                                ),
                                 IconButton(
                                   onPressed: () => Repository.to.toggleStarRoom(
                                     Repository.to.selectedRoom.value,
@@ -57,7 +62,10 @@ class ChatLargeLayout extends StatelessWidget {
                                 onPressed: () {
                                   Get.to(LoginScreen());
                                 },
-                                child: Text(AppLocalizations.of(context)?.login ?? "Login"),
+                                child: Text(
+                                  AppLocalizations.of(context)?.login ??
+                                      "Login",
+                                ),
                               ),
                             if (Repository.ndk.accounts.isLoggedIn)
                               ProfilePictureButtonView(),
