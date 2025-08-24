@@ -78,16 +78,15 @@ class Repository extends GetxController {
 
     final uid = event.pubKey.substring(event.pubKey.length - 4);
     final nTag = event.getFirstTag("n");
-    if (nTag == null) {
-      final metadata = await ndk.metadata.loadMetadata(event.pubKey);
-      final anonName = "Anon#$uid";
-      if (metadata != null) {
-        names[event.pubKey] = metadata.displayName ?? metadata.name ?? anonName;
-      } else {
-        names[event.pubKey] = anonName;
-      }
-    } else {
+    final metadata = await ndk.metadata.loadMetadata(event.pubKey);
+    final anonName = "Anon#$uid";
+
+    if (metadata != null) {
+      names[event.pubKey] = metadata.displayName ?? metadata.name ?? anonName;
+    } else if (nTag != null) {
       names[event.pubKey] = "$nTag#$uid";
+    } else {
+      names[event.pubKey] = anonName;
     }
 
     String? gTag = event.getFirstTag("g");
