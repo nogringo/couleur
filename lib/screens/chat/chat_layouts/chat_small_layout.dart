@@ -19,51 +19,57 @@ class ChatSmallLayout extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: DragToMoveArea(
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            title: Obx(
-              () => Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('#${Repository.to.selectedRoom.value}'),
-                  IconButton(
-                    onPressed: () => Repository.to.toggleStarRoom(
-                      Repository.to.selectedRoom.value,
-                    ),
-                    icon: Icon(
-                      Repository.to.isRoomStarred(
-                            Repository.to.selectedRoom.value,
-                          )
-                          ? Icons.star_rounded
-                          : Icons.star_border_rounded,
-                      size: 20,
-                    ),
+          child: GetBuilder<Repository>(
+            builder: (c) {
+              return AppBar(
+                backgroundColor: Colors.transparent,
+                surfaceTintColor: Colors.transparent,
+                title: Obx(
+                  () => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('#${Repository.to.selectedRoom.value}'),
+                      IconButton(
+                        onPressed: () => Repository.to.toggleStarRoom(
+                          Repository.to.selectedRoom.value,
+                        ),
+                        icon: Icon(
+                          Repository.to.isRoomStarred(
+                                Repository.to.selectedRoom.value,
+                              )
+                              ? Icons.star_rounded
+                              : Icons.star_border_rounded,
+                          size: 20,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                actions: [
+                  if (Repository.ndk.accounts.isNotLoggedIn)
+                    TextButton(
+                      onPressed: () {
+                        Get.to(LoginScreen());
+                      },
+                      child: Text("Login"),
+                    ),
+                  if (Repository.ndk.accounts.isLoggedIn)
+                    ProfilePictureButtonView(),
+                  SizedBox(width: 8),
+                  if (!kIsWeb &&
+                      (Platform.isWindows ||
+                          Platform.isLinux ||
+                          Platform.isMacOS))
+                    SizedBox(
+                      width: 154,
+                      child: WindowCaption(
+                        brightness: Theme.of(context).brightness,
+                        backgroundColor: Colors.transparent,
+                      ),
+                    ),
                 ],
-              ),
-            ),
-            actions: [
-              if (Repository.ndk.accounts.isNotLoggedIn)
-                TextButton(
-                  onPressed: () {
-                    Get.to(LoginScreen());
-                  },
-                  child: Text("Login"),
-                ),
-              if (Repository.ndk.accounts.isLoggedIn)
-                ProfilePictureButtonView(),
-              SizedBox(width: 8),
-              if (!kIsWeb &&
-                  (Platform.isWindows || Platform.isLinux || Platform.isMacOS))
-                SizedBox(
-                  width: 154,
-                  child: WindowCaption(
-                    brightness: Theme.of(context).brightness,
-                    backgroundColor: Colors.transparent,
-                  ),
-                ),
-            ],
+              );
+            },
           ),
         ),
       ),
