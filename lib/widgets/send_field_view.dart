@@ -10,13 +10,26 @@ class SendFieldView extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: TextField(
-        focusNode: Repository.to.sendFieldFocusNode,
-        controller: Repository.to.sendFieldController,
-        decoration: InputDecoration(hintText: l10n?.message ?? 'Message'),
-        onSubmitted: (value) {
-          Repository.to.sendMessage();
-        },
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              focusNode: Repository.to.sendFieldFocusNode,
+              controller: Repository.to.sendFieldController,
+              decoration: InputDecoration(hintText: l10n?.message ?? 'Message'),
+              onSubmitted: (value) {
+                Repository.to.sendMessage();
+              },
+            ),
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            onPressed: () {
+              Repository.to.sendMessage();
+            },
+            icon: const Icon(Icons.send),
+          ),
+        ],
       ),
     );
   }
