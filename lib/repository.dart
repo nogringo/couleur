@@ -20,12 +20,14 @@ class Repository extends GetxController {
   final sendFieldFocusNode = FocusNode();
   NdkResponse? roomsSubscription;
   RxInt minimumPowDifficulty = defaultMinimumPowDifficulty.obs;
+  RxBool includeClientTag = true.obs;
 
   @override
   void onInit() {
     super.onInit();
     loadStarredRooms();
     loadPowSettings();
+    loadClientTagSettings();
     fetchMuteList();
   }
 
@@ -58,6 +60,22 @@ class Repository extends GetxController {
   void setMinimumPowDifficulty(int difficulty) {
     minimumPowDifficulty.value = difficulty;
     savePowSettings();
+  }
+
+  void loadClientTagSettings() {
+    final stored = box.read<bool>('includeClientTag');
+    if (stored != null) {
+      includeClientTag.value = stored;
+    }
+  }
+
+  void saveClientTagSettings() {
+    box.write('includeClientTag', includeClientTag.value);
+  }
+
+  void setIncludeClientTag(bool value) {
+    includeClientTag.value = value;
+    saveClientTagSettings();
   }
 
   void toggleStarRoom(String roomId) {
@@ -194,6 +212,7 @@ class Repository extends GetxController {
         tags: [
           [tag, room],
           if (nTag != null) ["n", nTag],
+          if (includeClientTag.value) ["client", appTitle],
         ],
         content: sendFieldController.text,
       );
@@ -215,6 +234,7 @@ class Repository extends GetxController {
         tags: [
           [tag, room],
           if (nTag != null) ["n", nTag],
+          if (includeClientTag.value) ["client", appTitle],
           ["nonce", nonce.toString(), targetDifficulty.toString()],
         ],
         content: sendFieldController.text,

@@ -73,6 +73,9 @@ class MessageView extends StatelessWidget {
         message.content.contains('lntb') ||
         message.content.contains('lnbcrt');
 
+    // Get client tag if it exists
+    final clientName = message.getFirstTag("client");
+
     // Format the message timestamp
     final messageTime = DateTime.fromMillisecondsSinceEpoch(
       message.createdAt * 1000,
@@ -236,6 +239,16 @@ class MessageView extends StatelessWidget {
               ).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
+          if (clientName != null) ...[
+            SizedBox(width: 8),
+            Text(
+              'sent from $clientName',
+              style: TextStyle(
+                fontSize: 10,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
           Spacer(),
         ],
       ),

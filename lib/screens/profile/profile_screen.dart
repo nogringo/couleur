@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
 import 'package:couleur/controllers/theme_controller.dart';
+import 'package:couleur/config.dart';
 import 'package:nostr_widgets/nostr_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -97,6 +98,20 @@ class ProfileScreen extends StatelessWidget {
                               ),
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Card(
+                  margin: EdgeInsets.all(0),
+                  child: Obx(
+                    () => SwitchListTile(
+                      secondary: Icon(Icons.tag),
+                      title: Text('Let others know I use $appTitle'),
+                      value: Repository.to.includeClientTag.value,
+                      onChanged: (value) {
+                        Repository.to.setIncludeClientTag(value);
+                      },
                     ),
                   ),
                 ),
