@@ -77,36 +77,37 @@ class Repository extends GetxController {
     final timeWindowAgo = DateTime.now().subtract(
       Duration(minutes: popularRoomTimeWindowMinutes),
     );
-    
-    final popularRooms = rooms.entries
-        .map((entry) {
-          // Get messages from time window
-          final recentMessages = entry.value.where((event) {
-            final eventTime = DateTime.fromMillisecondsSinceEpoch(
-              event.createdAt * 1000,
-            );
-            return eventTime.isAfter(timeWindowAgo);
-          }).toList();
-          
-          // Count unique users
-          final uniqueUsers = recentMessages
-              .map((event) => event.pubKey)
-              .toSet()
-              .length;
-          
-          // Room is popular if it meets the configured criteria
-          final isPopular = recentMessages.length >= popularRoomMinMessages && 
-                           uniqueUsers >= popularRoomMinUniqueUsers;
-          
-          return MapEntry(
-            entry.key, 
-            isPopular ? recentMessages.length : 0,
-          );
-        })
-        .where((entry) => entry.value > 0) // Only rooms meeting the criteria
-        .toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-    
+
+    final popularRooms =
+        rooms.entries
+            .map((entry) {
+              // Get messages from time window
+              final recentMessages = entry.value.where((event) {
+                final eventTime = DateTime.fromMillisecondsSinceEpoch(
+                  event.createdAt * 1000,
+                );
+                return eventTime.isAfter(timeWindowAgo);
+              }).toList();
+
+              // Count unique users
+              final uniqueUsers = recentMessages
+                  .map((event) => event.pubKey)
+                  .toSet()
+                  .length;
+
+              // Room is popular if it meets the configured criteria
+              final isPopular =
+                  recentMessages.length >= popularRoomMinMessages &&
+                  uniqueUsers >= popularRoomMinUniqueUsers;
+
+              return MapEntry(entry.key, isPopular ? recentMessages.length : 0);
+            })
+            .where(
+              (entry) => entry.value > 0,
+            ) // Only rooms meeting the criteria
+            .toList()
+          ..sort((a, b) => b.value.compareTo(a.value));
+
     return popularRooms
         .take(popularRoomMaxDisplay)
         .map((entry) => entry.key)
@@ -183,7 +184,7 @@ class Repository extends GetxController {
     final kind = isGeoHash ? 20000 : 23333;
     final tag = isGeoHash ? "g" : "d";
     final room = isGeoHash ? selectedRoom.substring(3) : selectedRoom.value;
-    
+
     // Check if POW is required
     if (minimumPowDifficulty.value == 0) {
       // No POW required, send message directly
@@ -201,12 +202,12 @@ class Repository extends GetxController {
       sendFieldFocusNode.requestFocus();
       return;
     }
-    
+
     // Mine for proof of work
     final targetDifficulty = minimumPowDifficulty.value;
     Nip01Event? minedEvent;
     int nonce = 0;
-    
+
     while (minedEvent == null) {
       final nostrEvent = Nip01Event(
         pubKey: ndk.accounts.getPublicKey()!,
@@ -219,21 +220,21 @@ class Repository extends GetxController {
         content: sendFieldController.text,
         createdAt: DateTime.now().millisecondsSinceEpoch ~/ 1000,
       );
-      
+
       // Check if this event meets the difficulty requirement
       if (_countLeadingZeroBits(nostrEvent.id) >= targetDifficulty) {
         minedEvent = nostrEvent;
         break;
       }
-      
+
       nonce++;
-      
+
       // Allow UI to remain responsive
       if (nonce % 1000 == 0) {
         await Future.delayed(Duration.zero);
       }
     }
-    
+
     ndk.broadcast.broadcast(nostrEvent: minedEvent);
     sendFieldController.clear();
     sendFieldFocusNode.requestFocus();
@@ -275,7 +276,7 @@ class Repository extends GetxController {
             .signer
             .decrypt(muteEvent.content, muteEvent.pubKey);
       } catch (e) {
-        // 
+        //
       }
     }
 
@@ -295,32 +296,32 @@ class Repository extends GetxController {
       (tag) => tag.length >= 3 && tag[0] == 'nonce',
       orElse: () => [],
     );
-    
+
     if (nonceTag.isEmpty || nonceTag.length < 3) {
       // If no POW tag and minimum difficulty > 0, reject the event
       return minimumPowDifficulty.value == 0;
     }
-    
+
     // Extract target difficulty from the nonce tag
     final targetDifficulty = int.tryParse(nonceTag[2]) ?? 0;
-    
+
     // NIP-13: Count leading zero bits in the event ID (SHA-256 hash)
     final eventIdBits = _countLeadingZeroBits(event.id);
-    
+
     // Event must meet both the tag difficulty and our minimum difficulty
-    final requiredDifficulty = targetDifficulty > minimumPowDifficulty.value 
-        ? targetDifficulty 
+    final requiredDifficulty = targetDifficulty > minimumPowDifficulty.value
+        ? targetDifficulty
         : minimumPowDifficulty.value;
-    
+
     return eventIdBits >= requiredDifficulty;
   }
-  
+
   int _countLeadingZeroBits(String hexString) {
     int bits = 0;
     for (int i = 0; i < hexString.length; i++) {
       final char = hexString[i];
       final value = int.parse(char, radix: 16);
-      
+
       // According to NIP-13: Count leading zero bits
       // Each hex character represents 4 bits
       if (value == 0) {
@@ -385,7 +386,7 @@ class Repository extends GetxController {
         );
         content = encrypted ?? '';
       } catch (e) {
-        // 
+        //
       }
     }
 

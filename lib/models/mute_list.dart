@@ -133,7 +133,7 @@ class MuteList {
           }
         }
       } catch (e) {
-        // 
+        //
       }
     }
 

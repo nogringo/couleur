@@ -35,6 +35,22 @@ class _AddRoomDialogState extends State<AddRoomDialog> {
     super.dispose();
   }
 
+  void _submitRoom() {
+    if (!_isValidRoomName) return;
+
+    final roomName = _roomNameController.text.trim();
+
+    // Add room if it doesn't exist
+    if (!Repository.to.rooms.containsKey(roomName)) {
+      Repository.to.rooms[roomName] = <Nip01Event>[].obs;
+      Repository.to.update();
+    }
+
+    // Switch to the room (whether new or existing)
+    Repository.to.selectedRoom.value = roomName;
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -48,6 +64,7 @@ class _AddRoomDialogState extends State<AddRoomDialog> {
               AppLocalizations.of(context)?.enterRoomName ?? 'Enter room name',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
+        onSubmitted: (_) => _submitRoom(),
       ),
       actions: [
         TextButton(
@@ -55,19 +72,7 @@ class _AddRoomDialogState extends State<AddRoomDialog> {
           child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
         ),
         FilledButton(
-          onPressed: _isValidRoomName
-              ? () {
-                  final roomName = _roomNameController.text.trim();
-                  // Add room if it doesn't exist
-                  if (!Repository.to.rooms.containsKey(roomName)) {
-                    Repository.to.rooms[roomName] = <Nip01Event>[].obs;
-                    Repository.to.update();
-                  }
-                  // Switch to the room (whether new or existing)
-                  Repository.to.selectedRoom.value = roomName;
-                  Navigator.of(context).pop();
-                }
-              : null,
+          onPressed: _isValidRoomName ? _submitRoom : null,
           child: Text(AppLocalizations.of(context)?.join ?? 'Join'),
         ),
       ],

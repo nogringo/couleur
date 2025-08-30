@@ -64,26 +64,37 @@ class ProfileScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 8),
-                        Obx(() => Text(
-                          'Minimum difficulty: ${Repository.to.minimumPowDifficulty.value} bits',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        )),
+                        Obx(
+                          () => Text(
+                            'Minimum difficulty: ${Repository.to.minimumPowDifficulty.value} bits',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
                         SizedBox(height: 8),
-                        Obx(() => Slider(
-                          value: Repository.to.minimumPowDifficulty.value.toDouble(),
-                          min: 0,
-                          max: 32,
-                          divisions: 32,
-                          label: Repository.to.minimumPowDifficulty.value.toString(),
-                          onChanged: (value) {
-                            Repository.to.setMinimumPowDifficulty(value.round());
-                          },
-                        )),
+                        Obx(
+                          () => Slider(
+                            value: Repository.to.minimumPowDifficulty.value
+                                .toDouble(),
+                            min: 0,
+                            max: 32,
+                            divisions: 32,
+                            label: Repository.to.minimumPowDifficulty.value
+                                .toString(),
+                            onChanged: (value) {
+                              Repository.to.setMinimumPowDifficulty(
+                                value.round(),
+                              );
+                            },
+                          ),
+                        ),
                         Text(
                           '0 = No filter, 16-20 = Moderate, 24+ = High',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
+                              ),
                         ),
                       ],
                     ),
