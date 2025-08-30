@@ -26,11 +26,42 @@ class SideBarView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: GetBuilder<Repository>(
               builder: (c) {
+                // Get starred rooms
+                final starredRoomNames = c.starredRooms.toList();
+                
+                // Get popular rooms from repository
+                final popularRoomNames = c.getPopularRooms();
+                
                 return ListView(
                   children: [
-                    ...c.rooms.keys.map(
-                      (roomName) => RoomTileView(roomName: roomName),
-                    ),
+                    if (starredRoomNames.isNotEmpty) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        child: Text(
+                          'Starred',
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                      ...starredRoomNames.map(
+                        (roomName) => RoomTileView(roomName: roomName),
+                      ),
+                    ],
+                    if (popularRoomNames.isNotEmpty) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        child: Text(
+                          'Popular',
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                      ...popularRoomNames.map(
+                        (roomName) => RoomTileView(roomName: roomName),
+                      ),
+                    ],
                     SizedBox(height: 32),
                   ],
                 );

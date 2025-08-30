@@ -133,7 +133,7 @@ class MuteList {
           }
         }
       } catch (e) {
-        print('Error parsing private mute list: $e');
+        // 
       }
     }
 

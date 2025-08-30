@@ -43,6 +43,8 @@ void main() async {
         "wss://relay.damus.io",
         "wss://nos.lol",
         "wss://relay.snort.social",
+        "wss://nostr21.com",
+        "wss://offchain.pub",
       ],
     ),
   );

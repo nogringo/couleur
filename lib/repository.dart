@@ -55,6 +55,46 @@ class Repository extends GetxController {
     return starredRooms.contains(roomId);
   }
 
+  List<String> getPopularRooms() {
+    final timeWindowAgo = DateTime.now().subtract(
+      Duration(minutes: popularRoomTimeWindowMinutes),
+    );
+    
+    final popularRooms = rooms.entries
+        .map((entry) {
+          // Get messages from time window
+          final recentMessages = entry.value.where((event) {
+            final eventTime = DateTime.fromMillisecondsSinceEpoch(
+              event.createdAt * 1000,
+            );
+            return eventTime.isAfter(timeWindowAgo);
+          }).toList();
+          
+          // Count unique users
+          final uniqueUsers = recentMessages
+              .map((event) => event.pubKey)
+              .toSet()
+              .length;
+          
+          // Room is popular if it meets the configured criteria
+          final isPopular = recentMessages.length >= popularRoomMinMessages && 
+                           uniqueUsers >= popularRoomMinUniqueUsers;
+          
+          return MapEntry(
+            entry.key, 
+            isPopular ? recentMessages.length : 0,
+          );
+        })
+        .where((entry) => entry.value > 0) // Only rooms meeting the criteria
+        .toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    
+    return popularRooms
+        .take(popularRoomMaxDisplay)
+        .map((entry) => entry.key)
+        .toList();
+  }
+
   listenRooms() {
     if (roomsSubscription != null) return;
 
@@ -171,7 +211,7 @@ class Repository extends GetxController {
             .signer
             .decrypt(muteEvent.content, muteEvent.pubKey);
       } catch (e) {
-        print('Error decrypting mute list: $e');
+        // 
       }
     }
 
@@ -219,7 +259,7 @@ class Repository extends GetxController {
         );
         content = encrypted ?? '';
       } catch (e) {
-        print('Error encrypting private mute list: $e');
+        // 
       }
     }
 
