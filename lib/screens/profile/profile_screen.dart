@@ -46,6 +46,50 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+                Card(
+                  margin: EdgeInsets.all(0),
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.security),
+                            SizedBox(width: 16),
+                            Text(
+                              'Proof of Work Filter',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        Obx(() => Text(
+                          'Minimum difficulty: ${Repository.to.minimumPowDifficulty.value} bits',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        )),
+                        SizedBox(height: 8),
+                        Obx(() => Slider(
+                          value: Repository.to.minimumPowDifficulty.value.toDouble(),
+                          min: 0,
+                          max: 32,
+                          divisions: 32,
+                          label: Repository.to.minimumPowDifficulty.value.toString(),
+                          onChanged: (value) {
+                            Repository.to.setMinimumPowDifficulty(value.round());
+                          },
+                        )),
+                        Text(
+                          '0 = No filter, 16-20 = Moderate, 24+ = High',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
                 GestureDetector(
                   onTap: () async {
                     final url = Uri.parse(
