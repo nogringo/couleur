@@ -61,4 +61,58 @@ class AppLocalizationsRu extends AppLocalizations {
   String roomPrefix(String room) {
     return '#$room';
   }
+
+  @override
+  String get proofOfWorkFilter => 'Фильтр доказательства работы';
+
+  @override
+  String minimumDifficulty(int difficulty) {
+    return 'Минимальная сложность: $difficulty бит';
+  }
+
+  @override
+  String get powFilterHint => '0 = Без фильтра, 16-20 = Средний, 24+ = Высокий';
+
+  @override
+  String letOthersKnow(String appName) {
+    return 'Сообщить другим, что я использую $appName';
+  }
+
+  @override
+  String get sourceCode => 'Исходный код';
+
+  @override
+  String get viewOnGitHub => 'Посмотреть на GitHub';
+
+  @override
+  String get supportAndContact => 'Поддержка и контакты';
+
+  @override
+  String get donateOrGetInTouch => 'Пожертвовать или связаться через Nostr';
+
+  @override
+  String get roomName => 'Название комнаты';
+
+  @override
+  String get starred => 'Избранное';
+
+  @override
+  String get popular => 'Популярное';
+
+  @override
+  String get system => 'Система';
+
+  @override
+  String get light => 'Светлая';
+
+  @override
+  String get dark => 'Темная';
+
+  @override
+  String get yesterday => 'Вчера';
+
+  @override
+  String sentFrom(String clientName) {
+    return 'отправлено из $clientName';
+  }
 }

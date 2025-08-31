@@ -15,5 +15,21 @@
   "join": "参加",
   "themeMode": "テーマモード",
   "anonymousUser": "匿名#{uid}",
-  "roomPrefix": "#{room}"
+  "roomPrefix": "#{room}",
+  "proofOfWorkFilter": "プルーフ・オブ・ワークフィルター",
+  "minimumDifficulty": "最小難易度: {difficulty} ビット",
+  "powFilterHint": "0 = フィルターなし、16-20 = 中程度、24+ = 高",
+  "letOthersKnow": "{appName}を使用していることを他の人に知らせる",
+  "sourceCode": "ソースコード",
+  "viewOnGitHub": "GitHubで見る",
+  "supportAndContact": "サポートと連絡先",
+  "donateOrGetInTouch": "Nostr経由で寄付または連絡",
+  "roomName": "ルーム名",
+  "starred": "スター付き",
+  "popular": "人気",
+  "system": "システム",
+  "light": "ライト",
+  "dark": "ダーク",
+  "yesterday": "昨日",
+  "sentFrom": "{clientName}から送信"
 }

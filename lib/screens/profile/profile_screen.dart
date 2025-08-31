@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
 import 'package:couleur/controllers/theme_controller.dart';
 import 'package:couleur/config.dart';
+import 'package:couleur/l10n/app_localizations.dart';
 import 'package:nostr_widgets/nostr_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -39,8 +40,13 @@ class ProfileScreen extends StatelessWidget {
                     child: Obx(
                       () => ListTile(
                         leading: Icon(themeController.themeModeIcon),
-                        title: Text('Theme Mode'),
-                        subtitle: Text(themeController.themeModeText),
+                        title: Text(
+                          AppLocalizations.of(context)?.themeMode ??
+                              'Theme Mode',
+                        ),
+                        subtitle: Text(
+                          themeController.getThemeModeText(context),
+                        ),
                         trailing: Icon(Icons.chevron_right),
                       ),
                     ),
@@ -59,7 +65,8 @@ class ProfileScreen extends StatelessWidget {
                             Icon(Icons.security),
                             SizedBox(width: 16),
                             Text(
-                              'Proof of Work Filter',
+                              AppLocalizations.of(context)?.proofOfWorkFilter ??
+                                  'Proof of Work Filter',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ],
@@ -67,7 +74,10 @@ class ProfileScreen extends StatelessWidget {
                         SizedBox(height: 8),
                         Obx(
                           () => Text(
-                            'Minimum difficulty: ${Repository.to.minimumPowDifficulty.value} bits',
+                            AppLocalizations.of(context)?.minimumDifficulty(
+                                  Repository.to.minimumPowDifficulty.value,
+                                ) ??
+                                'Minimum difficulty: ${Repository.to.minimumPowDifficulty.value} bits',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
@@ -89,7 +99,8 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '0 = No filter, 16-20 = Moderate, 24+ = High',
+                          AppLocalizations.of(context)?.powFilterHint ??
+                              '0 = No filter, 16-20 = Moderate, 24+ = High',
                           style: Theme.of(context).textTheme.bodySmall
                               ?.copyWith(
                                 color: Theme.of(
@@ -107,7 +118,10 @@ class ProfileScreen extends StatelessWidget {
                   child: Obx(
                     () => SwitchListTile(
                       secondary: Icon(Icons.tag),
-                      title: Text('Let others know I use $appTitle'),
+                      title: Text(
+                        AppLocalizations.of(context)?.letOthersKnow(appTitle) ??
+                            'Let others know I use $appTitle',
+                      ),
                       value: Repository.to.includeClientTag.value,
                       onChanged: (value) {
                         Repository.to.setIncludeClientTag(value);
@@ -137,8 +151,14 @@ class ProfileScreen extends StatelessWidget {
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
-                      title: Text('Source Code'),
-                      subtitle: Text('View on GitHub'),
+                      title: Text(
+                        AppLocalizations.of(context)?.sourceCode ??
+                            'Source Code',
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(context)?.viewOnGitHub ??
+                            'View on GitHub',
+                      ),
                       trailing: Icon(Icons.open_in_new),
                     ),
                   ),
@@ -160,8 +180,14 @@ class ProfileScreen extends StatelessWidget {
                     margin: EdgeInsets.all(0),
                     child: ListTile(
                       leading: Icon(Icons.favorite),
-                      title: Text('Support & Contact'),
-                      subtitle: Text('Donate or get in touch via Nostr'),
+                      title: Text(
+                        AppLocalizations.of(context)?.supportAndContact ??
+                            'Support & Contact',
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(context)?.donateOrGetInTouch ??
+                            'Donate or get in touch via Nostr',
+                      ),
                       trailing: Icon(Icons.open_in_new),
                     ),
                   ),

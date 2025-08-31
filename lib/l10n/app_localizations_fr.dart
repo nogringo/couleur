@@ -61,4 +61,58 @@ class AppLocalizationsFr extends AppLocalizations {
   String roomPrefix(String room) {
     return '#$room';
   }
+
+  @override
+  String get proofOfWorkFilter => 'Filtre de Preuve de Travail';
+
+  @override
+  String minimumDifficulty(int difficulty) {
+    return 'Difficulté minimale : $difficulty bits';
+  }
+
+  @override
+  String get powFilterHint => '0 = Aucun filtre, 16-20 = Modéré, 24+ = Élevé';
+
+  @override
+  String letOthersKnow(String appName) {
+    return 'Informer les autres que j\'utilise $appName';
+  }
+
+  @override
+  String get sourceCode => 'Code Source';
+
+  @override
+  String get viewOnGitHub => 'Voir sur GitHub';
+
+  @override
+  String get supportAndContact => 'Support et Contact';
+
+  @override
+  String get donateOrGetInTouch => 'Faire un don ou prendre contact via Nostr';
+
+  @override
+  String get roomName => 'Nom de la Salle';
+
+  @override
+  String get starred => 'Favoris';
+
+  @override
+  String get popular => 'Populaire';
+
+  @override
+  String get system => 'Système';
+
+  @override
+  String get light => 'Clair';
+
+  @override
+  String get dark => 'Sombre';
+
+  @override
+  String get yesterday => 'Hier';
+
+  @override
+  String sentFrom(String clientName) {
+    return 'envoyé depuis $clientName';
+  }
 }

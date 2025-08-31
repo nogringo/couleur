@@ -61,4 +61,58 @@ class AppLocalizationsZh extends AppLocalizations {
   String roomPrefix(String room) {
     return '#$room';
   }
+
+  @override
+  String get proofOfWorkFilter => '工作量证明过滤器';
+
+  @override
+  String minimumDifficulty(int difficulty) {
+    return '最小难度：$difficulty 位';
+  }
+
+  @override
+  String get powFilterHint => '0 = 无过滤，16-20 = 中等，24+ = 高';
+
+  @override
+  String letOthersKnow(String appName) {
+    return '让其他人知道我在使用 $appName';
+  }
+
+  @override
+  String get sourceCode => '源代码';
+
+  @override
+  String get viewOnGitHub => '在 GitHub 上查看';
+
+  @override
+  String get supportAndContact => '支持与联系';
+
+  @override
+  String get donateOrGetInTouch => '通过 Nostr 捐赠或联系';
+
+  @override
+  String get roomName => '房间名称';
+
+  @override
+  String get starred => '已加星标';
+
+  @override
+  String get popular => '热门';
+
+  @override
+  String get system => '系统';
+
+  @override
+  String get light => '浅色';
+
+  @override
+  String get dark => '深色';
+
+  @override
+  String get yesterday => '昨天';
+
+  @override
+  String sentFrom(String clientName) {
+    return '发送自 $clientName';
+  }
 }

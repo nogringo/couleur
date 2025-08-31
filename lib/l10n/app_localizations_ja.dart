@@ -61,4 +61,58 @@ class AppLocalizationsJa extends AppLocalizations {
   String roomPrefix(String room) {
     return '#$room';
   }
+
+  @override
+  String get proofOfWorkFilter => 'プルーフ・オブ・ワークフィルター';
+
+  @override
+  String minimumDifficulty(int difficulty) {
+    return '最小難易度: $difficulty ビット';
+  }
+
+  @override
+  String get powFilterHint => '0 = フィルターなし、16-20 = 中程度、24+ = 高';
+
+  @override
+  String letOthersKnow(String appName) {
+    return '$appNameを使用していることを他の人に知らせる';
+  }
+
+  @override
+  String get sourceCode => 'ソースコード';
+
+  @override
+  String get viewOnGitHub => 'GitHubで見る';
+
+  @override
+  String get supportAndContact => 'サポートと連絡先';
+
+  @override
+  String get donateOrGetInTouch => 'Nostr経由で寄付または連絡';
+
+  @override
+  String get roomName => 'ルーム名';
+
+  @override
+  String get starred => 'スター付き';
+
+  @override
+  String get popular => '人気';
+
+  @override
+  String get system => 'システム';
+
+  @override
+  String get light => 'ライト';
+
+  @override
+  String get dark => 'ダーク';
+
+  @override
+  String get yesterday => '昨日';
+
+  @override
+  String sentFrom(String clientName) {
+    return '$clientNameから送信';
+  }
 }

@@ -89,7 +89,8 @@ class MessageView extends StatelessWidget {
       formattedTime = DateFormat('HH:mm').format(messageTime);
     } else if (difference.inDays == 1) {
       // Yesterday
-      formattedTime = 'Yesterday ${DateFormat('HH:mm').format(messageTime)}';
+      final yesterday = AppLocalizations.of(context)?.yesterday ?? 'Yesterday';
+      formattedTime = '$yesterday ${DateFormat('HH:mm').format(messageTime)}';
     } else if (difference.inDays < 7) {
       // This week - show day name and time
       formattedTime = DateFormat('E HH:mm').format(messageTime);
@@ -242,7 +243,8 @@ class MessageView extends StatelessWidget {
           if (clientName != null) ...[
             SizedBox(width: 8),
             Text(
-              'sent from $clientName',
+              AppLocalizations.of(context)?.sentFrom(clientName) ??
+                  'sent from $clientName',
               style: TextStyle(
                 fontSize: 10,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,

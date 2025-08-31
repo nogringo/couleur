@@ -201,6 +201,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'#{room}'**
   String roomPrefix(String room);
+
+  /// Proof of work filter setting
+  ///
+  /// In en, this message translates to:
+  /// **'Proof of Work Filter'**
+  String get proofOfWorkFilter;
+
+  /// Minimum difficulty display
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum difficulty: {difficulty} bits'**
+  String minimumDifficulty(int difficulty);
+
+  /// Proof of work filter hint text
+  ///
+  /// In en, this message translates to:
+  /// **'0 = No filter, 16-20 = Moderate, 24+ = High'**
+  String get powFilterHint;
+
+  /// Let others know about app usage
+  ///
+  /// In en, this message translates to:
+  /// **'Let others know I use {appName}'**
+  String letOthersKnow(String appName);
+
+  /// Source code section title
+  ///
+  /// In en, this message translates to:
+  /// **'Source Code'**
+  String get sourceCode;
+
+  /// View on GitHub link text
+  ///
+  /// In en, this message translates to:
+  /// **'View on GitHub'**
+  String get viewOnGitHub;
+
+  /// Support and contact section title
+  ///
+  /// In en, this message translates to:
+  /// **'Support & Contact'**
+  String get supportAndContact;
+
+  /// Donate or contact description
+  ///
+  /// In en, this message translates to:
+  /// **'Donate or get in touch via Nostr'**
+  String get donateOrGetInTouch;
+
+  /// Room name form field label
+  ///
+  /// In en, this message translates to:
+  /// **'Room Name'**
+  String get roomName;
+
+  /// Starred rooms section
+  ///
+  /// In en, this message translates to:
+  /// **'Starred'**
+  String get starred;
+
+  /// Popular rooms section
+  ///
+  /// In en, this message translates to:
+  /// **'Popular'**
+  String get popular;
+
+  /// System theme mode
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get system;
+
+  /// Light theme mode
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get light;
+
+  /// Dark theme mode
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get dark;
+
+  /// Yesterday text for date display
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
+
+  /// Sent from client message
+  ///
+  /// In en, this message translates to:
+  /// **'sent from {clientName}'**
+  String sentFrom(String clientName);
 }
 
 class _AppLocalizationsDelegate

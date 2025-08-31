@@ -15,5 +15,21 @@
   "join": "加入",
   "themeMode": "主题模式",
   "anonymousUser": "匿名#{uid}",
-  "roomPrefix": "#{room}"
+  "roomPrefix": "#{room}",
+  "proofOfWorkFilter": "工作量证明过滤器",
+  "minimumDifficulty": "最小难度：{difficulty} 位",
+  "powFilterHint": "0 = 无过滤，16-20 = 中等，24+ = 高",
+  "letOthersKnow": "让其他人知道我在使用 {appName}",
+  "sourceCode": "源代码",
+  "viewOnGitHub": "在 GitHub 上查看",
+  "supportAndContact": "支持与联系",
+  "donateOrGetInTouch": "通过 Nostr 捐赠或联系",
+  "roomName": "房间名称",
+  "starred": "已加星标",
+  "popular": "热门",
+  "system": "系统",
+  "light": "浅色",
+  "dark": "深色",
+  "yesterday": "昨天",
+  "sentFrom": "发送自 {clientName}"
 }

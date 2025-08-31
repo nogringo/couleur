@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:couleur/l10n/app_localizations.dart';
 
 class ThemeController extends GetxController {
   static ThemeController get to => Get.find();
@@ -39,14 +40,15 @@ class ThemeController extends GetxController {
     }
   }
 
-  String get themeModeText {
+  String getThemeModeText(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     switch (_themeMode.value) {
       case ThemeMode.system:
-        return 'System';
+        return l10n?.system ?? 'System';
       case ThemeMode.light:
-        return 'Light';
+        return l10n?.light ?? 'Light';
       case ThemeMode.dark:
-        return 'Dark';
+        return l10n?.dark ?? 'Dark';
     }
   }
 

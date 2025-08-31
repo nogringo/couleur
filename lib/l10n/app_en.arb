@@ -78,5 +78,84 @@
         "type": "String"
       }
     }
+  },
+  "proofOfWorkFilter": "Proof of Work Filter",
+  "@proofOfWorkFilter": {
+    "description": "Proof of work filter setting"
+  },
+  "minimumDifficulty": "Minimum difficulty: {difficulty} bits",
+  "@minimumDifficulty": {
+    "description": "Minimum difficulty display",
+    "placeholders": {
+      "difficulty": {
+        "type": "int"
+      }
+    }
+  },
+  "powFilterHint": "0 = No filter, 16-20 = Moderate, 24+ = High",
+  "@powFilterHint": {
+    "description": "Proof of work filter hint text"
+  },
+  "letOthersKnow": "Let others know I use {appName}",
+  "@letOthersKnow": {
+    "description": "Let others know about app usage",
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
+  "sourceCode": "Source Code",
+  "@sourceCode": {
+    "description": "Source code section title"
+  },
+  "viewOnGitHub": "View on GitHub",
+  "@viewOnGitHub": {
+    "description": "View on GitHub link text"
+  },
+  "supportAndContact": "Support & Contact",
+  "@supportAndContact": {
+    "description": "Support and contact section title"
+  },
+  "donateOrGetInTouch": "Donate or get in touch via Nostr",
+  "@donateOrGetInTouch": {
+    "description": "Donate or contact description"
+  },
+  "roomName": "Room Name",
+  "@roomName": {
+    "description": "Room name form field label"
+  },
+  "starred": "Starred",
+  "@starred": {
+    "description": "Starred rooms section"
+  },
+  "popular": "Popular",
+  "@popular": {
+    "description": "Popular rooms section"
+  },
+  "system": "System",
+  "@system": {
+    "description": "System theme mode"
+  },
+  "light": "Light",
+  "@light": {
+    "description": "Light theme mode"
+  },
+  "dark": "Dark",
+  "@dark": {
+    "description": "Dark theme mode"
+  },
+  "yesterday": "Yesterday",
+  "@yesterday": {
+    "description": "Yesterday text for date display"
+  },
+  "sentFrom": "sent from {clientName}",
+  "@sentFrom": {
+    "description": "Sent from client message",
+    "placeholders": {
+      "clientName": {
+        "type": "String"
+      }
+    }
   }
 }

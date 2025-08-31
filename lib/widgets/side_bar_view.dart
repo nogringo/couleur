@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
+import 'package:couleur/l10n/app_localizations.dart';
 import 'package:couleur/widgets/add_room_dialog.dart';
 
 class SideBarView extends StatelessWidget {
@@ -41,7 +42,7 @@ class SideBarView extends StatelessWidget {
                           vertical: 4,
                         ),
                         child: Text(
-                          'Starred',
+                          AppLocalizations.of(context)?.starred ?? 'Starred',
                           style: Theme.of(context).textTheme.labelSmall
                               ?.copyWith(
                                 color: Theme.of(
@@ -61,7 +62,7 @@ class SideBarView extends StatelessWidget {
                           vertical: 4,
                         ),
                         child: Text(
-                          'Popular',
+                          AppLocalizations.of(context)?.popular ?? 'Popular',
                           style: Theme.of(context).textTheme.labelSmall
                               ?.copyWith(
                                 color: Theme.of(

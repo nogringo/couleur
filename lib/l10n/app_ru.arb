@@ -15,5 +15,21 @@
   "join": "Присоединиться",
   "themeMode": "Режим темы",
   "anonymousUser": "Аноним#{uid}",
-  "roomPrefix": "#{room}"
+  "roomPrefix": "#{room}",
+  "proofOfWorkFilter": "Фильтр доказательства работы",
+  "minimumDifficulty": "Минимальная сложность: {difficulty} бит",
+  "powFilterHint": "0 = Без фильтра, 16-20 = Средний, 24+ = Высокий",
+  "letOthersKnow": "Сообщить другим, что я использую {appName}",
+  "sourceCode": "Исходный код",
+  "viewOnGitHub": "Посмотреть на GitHub",
+  "supportAndContact": "Поддержка и контакты",
+  "donateOrGetInTouch": "Пожертвовать или связаться через Nostr",
+  "roomName": "Название комнаты",
+  "starred": "Избранное",
+  "popular": "Популярное",
+  "system": "Система",
+  "light": "Светлая",
+  "dark": "Темная",
+  "yesterday": "Вчера",
+  "sentFrom": "отправлено из {clientName}"
 }

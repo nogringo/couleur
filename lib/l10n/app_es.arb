@@ -15,5 +15,21 @@
   "join": "Unirse",
   "themeMode": "Modo de tema",
   "anonymousUser": "Anon#{uid}",
-  "roomPrefix": "#{room}"
+  "roomPrefix": "#{room}",
+  "proofOfWorkFilter": "Filtro de Prueba de Trabajo",
+  "minimumDifficulty": "Dificultad mínima: {difficulty} bits",
+  "powFilterHint": "0 = Sin filtro, 16-20 = Moderado, 24+ = Alto",
+  "letOthersKnow": "Dejar que otros sepan que uso {appName}",
+  "sourceCode": "Código Fuente",
+  "viewOnGitHub": "Ver en GitHub",
+  "supportAndContact": "Soporte y Contacto",
+  "donateOrGetInTouch": "Donar o ponerse en contacto a través de Nostr",
+  "roomName": "Nombre de Sala",
+  "starred": "Destacado",
+  "popular": "Popular",
+  "system": "Sistema",
+  "light": "Claro",
+  "dark": "Oscuro",
+  "yesterday": "Ayer",
+  "sentFrom": "enviado desde {clientName}"
 }
