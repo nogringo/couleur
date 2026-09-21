@@ -1,30 +1,30 @@
 name: couleur
 description: "Ephemeral chat"
 publish_to: 'none'
-version: 1.2.0
+version: 1.2.1
 
 environment:
-  sdk: ^3.9.0
+  sdk: ^3.12.2
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  get: ^4.7.2
-  get_storage: ^2.1.1
+  get: ^4.7.3
   intl: any
-  ndk: ^0.5.0
-  nip19: ^0.2.0
-  nostr_widgets: ^0.0.3
-  system_theme: ^3.1.2
+  ndk: ^0.10.0-dev.5
+  ndk_flutter: ^0.10.0-dev.6
+  ndk_drift: ^0.1.1-dev.17
+  shared_preferences: ^2.5.5
+  system_theme: ^3.3.0
   url_launcher: ^6.3.2
   window_manager: ^0.5.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   generate: true

@@ -5,7 +5,7 @@ import 'package:couleur/repository.dart';
 import 'package:couleur/controllers/theme_controller.dart';
 import 'package:couleur/config.dart';
 import 'package:couleur/l10n/app_localizations.dart';
-import 'package:nostr_widgets/nostr_widgets.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 NUserProfile(
-                  ndk: Repository.ndk,
+                  ndkFlutter: Repository.ndkFlutter,
                   onLogout: () {
                     Get.back();
                     AuthController.to.update();

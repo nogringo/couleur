@@ -2,7 +2,7 @@ import 'package:couleur/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
-import 'package:nostr_widgets/nostr_widgets.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 500),
             child: NLogin(
-              ndk: Repository.ndk,
+              ndkFlutter: Repository.ndkFlutter,
               enablePubkeyLogin: false,
               onLoggedIn: () {
                 Get.back();

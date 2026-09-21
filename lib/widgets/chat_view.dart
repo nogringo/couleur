@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ndk/entities.dart';
-import 'package:nip19/nip19.dart';
+import 'package:ndk/ndk.dart' show Nip19;
 import 'package:couleur/repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:couleur/l10n/app_localizations.dart';
@@ -136,7 +136,7 @@ class MessageView extends StatelessWidget {
                       ),
                       onTap: () async {
                         final url = Uri.parse(
-                          'https://njump.me/${Nip19.npubFromHex(message.pubKey)}',
+                          'https://njump.me/${Nip19.encodePubKey(message.pubKey)}',
                         );
                         if (await canLaunchUrl(url)) {
                           await launchUrl(

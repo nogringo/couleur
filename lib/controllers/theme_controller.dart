@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:couleur/l10n/app_localizations.dart';
 
 class ThemeController extends GetxController {
   static ThemeController get to => Get.find();
 
-  final _storage = GetStorage();
+  final SharedPreferences _storage = Get.find();
   final _themeMode = ThemeMode.system.obs;
 
   ThemeMode get themeMode => _themeMode.value;
@@ -14,7 +14,7 @@ class ThemeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final savedTheme = _storage.read('themeMode');
+    final savedTheme = _storage.getInt('themeMode');
     if (savedTheme != null) {
       _themeMode.value = ThemeMode.values[savedTheme];
     }
@@ -22,7 +22,7 @@ class ThemeController extends GetxController {
 
   void setThemeMode(ThemeMode mode) {
     _themeMode.value = mode;
-    _storage.write('themeMode', mode.index);
+    _storage.setInt('themeMode', mode.index);
     Get.changeThemeMode(mode);
   }
 

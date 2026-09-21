@@ -3,24 +3,18 @@ import 'package:couleur/controllers/auth_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:ndk/ndk.dart';
 import 'package:couleur/repository.dart';
 import 'package:couleur/controllers/theme_controller.dart';
 import 'package:couleur/screens/chat/chat_screen.dart';
-import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
-import 'package:nostr_widgets/l10n/app_localizations.dart';
-import 'package:nostr_widgets/nostr_widgets.dart';
+import 'package:couleur/l10n/app_localizations.dart';
+import 'package:ndk_flutter/l10n/app_localizations.dart' as ndk_flutter;
+import 'package:ndk_flutter/ndk_flutter.dart';
+import 'package:ndk_drift/ndk_drift.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-class NoEventVerifier extends EventVerifier {
-  @override
-  Future<bool> verify(Nip01Event event) async {
-    return true;
-  }
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,12 +26,13 @@ void main() async {
 
   await SystemTheme.accentColor.load();
 
-  await GetStorage.init();
+  Get.put(await SharedPreferences.getInstance());
 
   final ndk = Ndk(
     NdkConfig(
-      eventVerifier: NoEventVerifier(),
-      cache: MemCacheManager(),
+      eventVerifier: NdkEventVerifier(),
+      eventSignerFactory: NdkEventSignerFactory(),
+      cache: await DriftCacheManager.create(),
       bootstrapRelays: [
         "wss://relay.primal.net",
         "wss://relay.damus.io",
@@ -50,7 +45,10 @@ void main() async {
   );
   Get.put(ndk);
 
-  await nRestoreAccounts(ndk);
+  final ndkFlutter = NdkFlutter(ndk: ndk);
+  Get.put(ndkFlutter);
+
+  await ndkFlutter.restoreAccountsState();
 
   Get.put(AuthController());
   Get.put(Repository());
@@ -95,7 +93,8 @@ class MainApp extends StatelessWidget {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
-              nostr_widgets.AppLocalizations.delegate,
+              AppLocalizations.delegate,
+              ndk_flutter.AppLocalizations.delegate,
             ],
             supportedLocales: AppLocalizations.supportedLocales,
             theme: getTheme(),

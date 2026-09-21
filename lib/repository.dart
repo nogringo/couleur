@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:ndk/ndk.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:couleur/config.dart';
 import 'package:couleur/models/mute_list.dart';
 
 class Repository extends GetxController {
   static Repository get to => Get.find();
   static Ndk get ndk => Get.find();
+  static NdkFlutter get ndkFlutter => Get.find();
 
-  final box = GetStorage();
+  final SharedPreferences box = Get.find();
 
   Map<String, String> names = {};
   Map<String, RxList<Nip01Event>> rooms = {globalRoom: <Nip01Event>[].obs};
@@ -32,9 +34,9 @@ class Repository extends GetxController {
   }
 
   void loadStarredRooms() {
-    final stored = box.read<List>('starredRooms');
+    final stored = box.getStringList('starredRooms');
     if (stored == null) return;
-    starredRooms.value = List<String>.from(stored);
+    starredRooms.value = stored;
 
     for (String starredRoom in starredRooms) {
       if (rooms.containsKey(starredRoom)) continue;
@@ -43,18 +45,18 @@ class Repository extends GetxController {
   }
 
   void saveStarredRooms() {
-    box.write('starredRooms', starredRooms.toList());
+    box.setStringList('starredRooms', starredRooms.toList());
   }
 
   void loadPowSettings() {
-    final stored = box.read<int>('minimumPowDifficulty');
+    final stored = box.getInt('minimumPowDifficulty');
     if (stored != null) {
       minimumPowDifficulty.value = stored;
     }
   }
 
   void savePowSettings() {
-    box.write('minimumPowDifficulty', minimumPowDifficulty.value);
+    box.setInt('minimumPowDifficulty', minimumPowDifficulty.value);
   }
 
   void setMinimumPowDifficulty(int difficulty) {
@@ -63,14 +65,14 @@ class Repository extends GetxController {
   }
 
   void loadClientTagSettings() {
-    final stored = box.read<bool>('includeClientTag');
+    final stored = box.getBool('includeClientTag');
     if (stored != null) {
       includeClientTag.value = stored;
     }
   }
 
   void saveClientTagSettings() {
-    box.write('includeClientTag', includeClientTag.value);
+    box.setBool('includeClientTag', includeClientTag.value);
   }
 
   void setIncludeClientTag(bool value) {
@@ -132,22 +134,20 @@ class Repository extends GetxController {
         .toList();
   }
 
-  listenRooms() {
+  void listenRooms() {
     if (roomsSubscription != null) return;
 
     roomsSubscription = ndk.requests.subscription(
-      filters: [
-        Filter(
-          kinds: [20000, 23333],
-          since: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-        ),
-      ],
+      filter: Filter(
+        kinds: [20000, 23333],
+        since: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      ),
     );
 
     roomsSubscription!.stream.listen(onEvent);
   }
 
-  onEvent(Nip01Event event) async {
+  Future<void> onEvent(Nip01Event event) async {
     // Check if the user is muted
     if (muteList != null && muteList!.isMuted(event.pubKey)) {
       return; // Skip events from muted users
@@ -186,7 +186,7 @@ class Repository extends GetxController {
     update();
   }
 
-  sendMessage() async {
+  Future<void> sendMessage() async {
     final pubkey = ndk.accounts.getPublicKey();
 
     if (pubkey == null) return;
@@ -265,9 +265,7 @@ class Repository extends GetxController {
     if (pubkey == null) return;
 
     final res = ndk.requests.query(
-      filters: [
-        Filter(kinds: [10000], authors: [pubkey], limit: 1),
-      ],
+      filter: Filter(kinds: [10000], authors: [pubkey], limit: 1),
     );
 
     final muteEvents = await res.future;
@@ -290,13 +288,28 @@ class Repository extends GetxController {
     // Decrypt private content if exists
     String? decryptedContent;
     if (muteEvent.content.isNotEmpty) {
+      final signer = ndk.accounts.getLoggedAccount()!.signer;
+
       try {
-        decryptedContent = await ndk.accounts
-            .getLoggedAccount()!
-            .signer
-            .decrypt(muteEvent.content, muteEvent.pubKey);
+        decryptedContent = await signer.decryptNip44(
+          ciphertext: muteEvent.content,
+          senderPubKey: muteEvent.pubKey,
+        );
       } catch (e) {
         //
+      }
+
+      if (decryptedContent == null) {
+        try {
+          // lists written before NIP-51 moved to nip44
+          // ignore: deprecated_member_use
+          decryptedContent = await signer.decrypt(
+            muteEvent.content,
+            muteEvent.pubKey,
+          );
+        } catch (e) {
+          //
+        }
       }
     }
 
@@ -400,10 +413,13 @@ class Repository extends GetxController {
         muteList!.privateMutedThreads.isNotEmpty) {
       try {
         final privateContent = muteList!.toPrivateContent();
-        final encrypted = await ndk.accounts.getLoggedAccount()!.signer.encrypt(
-          privateContent,
-          ndk.accounts.getPublicKey()!,
-        );
+        final encrypted = await ndk.accounts
+            .getLoggedAccount()!
+            .signer
+            .encryptNip44(
+              plaintext: privateContent,
+              recipientPubKey: ndk.accounts.getPublicKey()!,
+            );
         content = encrypted ?? '';
       } catch (e) {
         //

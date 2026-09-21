@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
 import 'package:couleur/screens/profile/profile_screen.dart';
-import 'package:nostr_widgets/nostr_widgets.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 
 class ProfilePictureButtonView extends StatelessWidget {
   const ProfilePictureButtonView({super.key});
@@ -13,7 +13,7 @@ class ProfilePictureButtonView extends StatelessWidget {
       onTap: () {
         Get.to(() => ProfileScreen());
       },
-      child: NPicture(ndk: Repository.ndk),
+      child: NPicture(ndkFlutter: Repository.ndkFlutter),
     );
   }
 }
