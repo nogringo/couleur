@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ndk/entities.dart';
 import 'package:ndk/ndk.dart' show Nip19;
+import 'package:ndk_flutter/ndk_flutter.dart' show StringColor;
 import 'package:couleur/repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:couleur/l10n/app_localizations.dart';
@@ -195,7 +196,12 @@ class MessageView extends StatelessWidget {
               },
               child: Text(
                 Repository.to.names[message.pubKey]!,
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                style: TextStyle(
+                  color: StringColor.fromString(
+                    message.pubKey,
+                    textBrightness: Theme.of(context).brightness,
+                  ),
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
