@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:couleur/l10n/app_localizations.dart';
 
 class ThemeController extends GetxController {
   static ThemeController get to => Get.find();
@@ -24,42 +23,5 @@ class ThemeController extends GetxController {
     _themeMode.value = mode;
     _storage.setInt('themeMode', mode.index);
     Get.changeThemeMode(mode);
-  }
-
-  void toggleTheme() {
-    switch (_themeMode.value) {
-      case ThemeMode.system:
-        setThemeMode(ThemeMode.light);
-        break;
-      case ThemeMode.light:
-        setThemeMode(ThemeMode.dark);
-        break;
-      case ThemeMode.dark:
-        setThemeMode(ThemeMode.system);
-        break;
-    }
-  }
-
-  String getThemeModeText(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    switch (_themeMode.value) {
-      case ThemeMode.system:
-        return l10n?.system ?? 'System';
-      case ThemeMode.light:
-        return l10n?.light ?? 'Light';
-      case ThemeMode.dark:
-        return l10n?.dark ?? 'Dark';
-    }
-  }
-
-  IconData get themeModeIcon {
-    switch (_themeMode.value) {
-      case ThemeMode.system:
-        return Icons.brightness_auto;
-      case ThemeMode.light:
-        return Icons.light_mode;
-      case ThemeMode.dark:
-        return Icons.dark_mode;
-    }
   }
 }

@@ -1,9 +1,5 @@
 {
   "@@locale": "en",
-  "appTitle": "Couleur",
-  "@appTitle": {
-    "description": "Application title"
-  },
   "login": "Login",
   "@login": {
     "description": "Login button text"
@@ -60,15 +56,6 @@
   "themeMode": "Theme Mode",
   "@themeMode": {
     "description": "Theme mode setting title"
-  },
-  "anonymousUser": "Anon#{uid}",
-  "@anonymousUser": {
-    "description": "Anonymous user name format",
-    "placeholders": {
-      "uid": {
-        "type": "String"
-      }
-    }
   },
   "roomPrefix": "#{room}",
   "@roomPrefix": {
@@ -157,5 +144,13 @@
         "type": "String"
       }
     }
+  },
+  "privacy": "Privacy",
+  "@privacy": {
+    "description": "Privacy settings section title"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About section title"
   }
 }

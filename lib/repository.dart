@@ -15,6 +15,7 @@ class Repository extends GetxController {
   final SharedPreferences box = Get.find();
 
   final RxMap<String, String> names = <String, String>{}.obs;
+  final RxMap<String, String> nip05s = <String, String>{}.obs;
   final Map<String, Future<Metadata?>> _metadataRequests = {};
   final Set<String> _displayedEventIds = {};
   Map<String, RxList<Nip01Event>> rooms = {globalRoom: <Nip01Event>[].obs};
@@ -183,11 +184,22 @@ class Repository extends GetxController {
     rooms[roomName]!.add(event);
     update();
 
-    _refineName(event.pubKey);
+    refineName(event.pubKey);
   }
 
   String displayName(Nip01Event event) {
     return names[event.pubKey] ?? _tagName(event);
+  }
+
+  /// Name for a pubkey with no event at hand to read an `n` tag from. Starts
+  /// the metadata lookup on a miss; `loadMetadata` dedupes, so an Obx rebuild
+  /// costs nothing.
+  String displayNameOf(String pubKey) {
+    final name = names[pubKey];
+    if (name != null) return name;
+
+    refineName(pubKey);
+    return "Anon#${pubKey.substring(pubKey.length - 4)}";
   }
 
   String _tagName(Nip01Event event) {
@@ -196,8 +208,12 @@ class Repository extends GetxController {
     return nTag != null ? "$nTag#$uid" : "Anon#$uid";
   }
 
-  Future<void> _refineName(String pubKey) async {
+  Future<void> refineName(String pubKey) async {
     final metadata = await loadMetadata(pubKey);
+
+    final nip05 = metadata?.cleanNip05;
+    if (nip05 != null) nip05s[pubKey] = nip05;
+
     final name = metadata?.displayName ?? metadata?.name;
     if (name == null || names[pubKey] == name) return;
 

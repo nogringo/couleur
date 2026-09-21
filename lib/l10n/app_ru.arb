@@ -1,6 +1,5 @@
 {
   "@@locale": "ru",
-  "appTitle": "Couleur",
   "login": "Войти",
   "message": "Сообщение",
   "viewProfile": "Просмотр профиля",
@@ -14,7 +13,6 @@
   "cancel": "Отмена",
   "join": "Присоединиться",
   "themeMode": "Режим темы",
-  "anonymousUser": "Аноним#{uid}",
   "roomPrefix": "#{room}",
   "proofOfWorkFilter": "Фильтр доказательства работы",
   "minimumDifficulty": "Минимальная сложность: {difficulty} бит",
@@ -31,5 +29,7 @@
   "light": "Светлая",
   "dark": "Темная",
   "yesterday": "Вчера",
-  "sentFrom": "отправлено из {clientName}"
+  "sentFrom": "отправлено из {clientName}",
+  "privacy": "Конфиденциальность",
+  "about": "О приложении"
 }

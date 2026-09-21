@@ -106,12 +106,6 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
-  /// Application title
-  ///
-  /// In en, this message translates to:
-  /// **'Couleur'**
-  String get appTitle;
-
   /// Login button text
   ///
   /// In en, this message translates to:
@@ -189,12 +183,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Theme Mode'**
   String get themeMode;
-
-  /// Anonymous user name format
-  ///
-  /// In en, this message translates to:
-  /// **'Anon#{uid}'**
-  String anonymousUser(String uid);
 
   /// Room name with hashtag prefix
   ///
@@ -297,6 +285,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'sent from {clientName}'**
   String sentFrom(String clientName);
+
+  /// Privacy settings section title
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get privacy;
+
+  /// About section title
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
 }
 
 class _AppLocalizationsDelegate

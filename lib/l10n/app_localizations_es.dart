@@ -9,9 +9,6 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'Couleur';
-
-  @override
   String get login => 'Iniciar sesión';
 
   @override
@@ -51,11 +48,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get themeMode => 'Modo de tema';
-
-  @override
-  String anonymousUser(String uid) {
-    return 'Anon#$uid';
-  }
 
   @override
   String roomPrefix(String room) {
@@ -116,4 +108,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String sentFrom(String clientName) {
     return 'enviado desde $clientName';
   }
+
+  @override
+  String get privacy => 'Privacidad';
+
+  @override
+  String get about => 'Acerca de';
 }

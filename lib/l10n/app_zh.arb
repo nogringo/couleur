@@ -1,6 +1,5 @@
 {
   "@@locale": "zh",
-  "appTitle": "Couleur",
   "login": "登录",
   "message": "消息",
   "viewProfile": "查看资料",
@@ -14,7 +13,6 @@
   "cancel": "取消",
   "join": "加入",
   "themeMode": "主题模式",
-  "anonymousUser": "匿名#{uid}",
   "roomPrefix": "#{room}",
   "proofOfWorkFilter": "工作量证明过滤器",
   "minimumDifficulty": "最小难度：{difficulty} 位",
@@ -31,5 +29,7 @@
   "light": "浅色",
   "dark": "深色",
   "yesterday": "昨天",
-  "sentFrom": "发送自 {clientName}"
+  "sentFrom": "发送自 {clientName}",
+  "privacy": "隐私",
+  "about": "关于"
 }

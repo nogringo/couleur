@@ -1,6 +1,5 @@
 {
   "@@locale": "es",
-  "appTitle": "Couleur",
   "login": "Iniciar sesión",
   "message": "Mensaje",
   "viewProfile": "Ver perfil",
@@ -14,7 +13,6 @@
   "cancel": "Cancelar",
   "join": "Unirse",
   "themeMode": "Modo de tema",
-  "anonymousUser": "Anon#{uid}",
   "roomPrefix": "#{room}",
   "proofOfWorkFilter": "Filtro de Prueba de Trabajo",
   "minimumDifficulty": "Dificultad mínima: {difficulty} bits",
@@ -31,5 +29,7 @@
   "light": "Claro",
   "dark": "Oscuro",
   "yesterday": "Ayer",
-  "sentFrom": "enviado desde {clientName}"
+  "sentFrom": "enviado desde {clientName}",
+  "privacy": "Privacidad",
+  "about": "Acerca de"
 }

@@ -1,6 +1,5 @@
 {
   "@@locale": "ja",
-  "appTitle": "Couleur",
   "login": "ログイン",
   "message": "メッセージ",
   "viewProfile": "プロフィールを見る",
@@ -14,7 +13,6 @@
   "cancel": "キャンセル",
   "join": "参加",
   "themeMode": "テーマモード",
-  "anonymousUser": "匿名#{uid}",
   "roomPrefix": "#{room}",
   "proofOfWorkFilter": "プルーフ・オブ・ワークフィルター",
   "minimumDifficulty": "最小難易度: {difficulty} ビット",
@@ -31,5 +29,7 @@
   "light": "ライト",
   "dark": "ダーク",
   "yesterday": "昨日",
-  "sentFrom": "{clientName}から送信"
+  "sentFrom": "{clientName}から送信",
+  "privacy": "プライバシー",
+  "about": "このアプリについて"
 }

@@ -9,9 +9,6 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get appTitle => 'Couleur';
-
-  @override
   String get login => '登录';
 
   @override
@@ -51,11 +48,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get themeMode => '主题模式';
-
-  @override
-  String anonymousUser(String uid) {
-    return '匿名#$uid';
-  }
 
   @override
   String roomPrefix(String room) {
@@ -115,4 +107,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String sentFrom(String clientName) {
     return '发送自 $clientName';
   }
+
+  @override
+  String get privacy => '隐私';
+
+  @override
+  String get about => '关于';
 }
