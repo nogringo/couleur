@@ -161,7 +161,7 @@ class MessageView extends StatelessWidget {
                         final currentText =
                             Repository.to.sendFieldController.text;
                         final mention =
-                            '@${Repository.to.names[message.pubKey]} ';
+                            '@${Repository.to.displayName(message)} ';
                         Repository.to.sendFieldController.text =
                             currentText + mention;
                         Repository
@@ -194,20 +194,22 @@ class MessageView extends StatelessWidget {
                   ],
                 );
               },
-              child: Text(
-                Repository.to.names[message.pubKey]!,
-                style: TextStyle(
-                  color: StringColor.fromString(
-                    message.pubKey,
-                    textBrightness: Theme.of(context).brightness,
+              child: Obx(
+                () => Text(
+                  Repository.to.displayName(message),
+                  style: TextStyle(
+                    color: StringColor.fromString(
+                      message.pubKey,
+                      textBrightness: Theme.of(context).brightness,
+                    ),
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
           FutureBuilder(
-            future: Repository.ndk.metadata.loadMetadata(message.pubKey),
+            future: Repository.to.loadMetadata(message.pubKey),
             builder: (context, snapshot) {
               if (snapshot.data == null) return Container();
               final metadata = snapshot.data!;

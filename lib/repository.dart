@@ -14,7 +14,9 @@ class Repository extends GetxController {
 
   final SharedPreferences box = Get.find();
 
-  Map<String, String> names = {};
+  final RxMap<String, String> names = <String, String>{}.obs;
+  final Map<String, Future<Metadata?>> _metadataRequests = {};
+  final Set<String> _displayedEventIds = {};
   Map<String, RxList<Nip01Event>> rooms = {globalRoom: <Nip01Event>[].obs};
   RxList<String> starredRooms = <String>[].obs;
   MuteList? muteList;
@@ -159,19 +161,6 @@ class Repository extends GetxController {
       return; // Skip events without valid POW
     }
 
-    final uid = event.pubKey.substring(event.pubKey.length - 4);
-    final nTag = event.getFirstTag("n");
-    final metadata = await ndk.metadata.loadMetadata(event.pubKey);
-    final anonName = "Anon#$uid";
-
-    if (metadata != null) {
-      names[event.pubKey] = metadata.displayName ?? metadata.name ?? anonName;
-    } else if (nTag != null) {
-      names[event.pubKey] = "$nTag#$uid";
-    } else {
-      names[event.pubKey] = anonName;
-    }
-
     String? gTag = event.getFirstTag("g");
     if (gTag != null) gTag = "bc_$gTag";
 
@@ -180,48 +169,92 @@ class Repository extends GetxController {
     final roomName = gTag ?? dTag;
     if (roomName == null) return;
 
+    addMessage(roomName, event);
+  }
+
+  void addMessage(String roomName, Nip01Event event) {
+    if (!_displayedEventIds.add(event.id)) return;
+
+    names[event.pubKey] ??= _tagName(event);
+
     if (!rooms.containsKey(roomName)) {
       rooms[roomName] = <Nip01Event>[].obs;
     }
     rooms[roomName]!.add(event);
     update();
+
+    _refineName(event.pubKey);
+  }
+
+  String displayName(Nip01Event event) {
+    return names[event.pubKey] ?? _tagName(event);
+  }
+
+  String _tagName(Nip01Event event) {
+    final uid = event.pubKey.substring(event.pubKey.length - 4);
+    final nTag = event.getFirstTag("n");
+    return nTag != null ? "$nTag#$uid" : "Anon#$uid";
+  }
+
+  Future<void> _refineName(String pubKey) async {
+    final metadata = await loadMetadata(pubKey);
+    final name = metadata?.displayName ?? metadata?.name;
+    if (name == null || names[pubKey] == name) return;
+
+    names[pubKey] = name;
+    update();
+  }
+
+  /// ndk never caches a missing profile, so each lookup of a profileless pubkey
+  /// costs a 5s timeout: keep one future per pubkey instead of re-querying.
+  Future<Metadata?> loadMetadata(String pubKey) {
+    return _metadataRequests.putIfAbsent(
+      pubKey,
+      () => ndk.metadata.loadMetadata(pubKey).onError((_, _) => null),
+    );
   }
 
   Future<void> sendMessage() async {
-    if (sendFieldController.text.isEmpty) return;
+    final content = sendFieldController.text;
+    if (content.isEmpty) return;
 
     await AuthController.to.ensureAccount();
 
     final pubkey = ndk.accounts.getPublicKey();
     if (pubkey == null) return;
 
-    String? nTag;
-    final metadata = await ndk.metadata.loadMetadata(pubkey);
-    if (metadata != null) {
-      nTag = metadata.displayName ?? metadata.name;
-    }
+    sendFieldController.clear();
+    sendFieldFocusNode.requestFocus();
 
-    final isGeoHash = selectedRoom.startsWith("bc_");
+    final metadata = await loadMetadata(
+      pubkey,
+    ).timeout(nTagLookupTimeout, onTimeout: () => null);
+    final nTag = metadata?.displayName ?? metadata?.name;
+
+    final roomKey = selectedRoom.value;
+    final isGeoHash = roomKey.startsWith("bc_");
     final kind = isGeoHash ? 20000 : 23333;
     final tag = isGeoHash ? "g" : "d";
-    final room = isGeoHash ? selectedRoom.substring(3) : selectedRoom.value;
+    final room = isGeoHash ? roomKey.substring(3) : roomKey;
 
     // Check if POW is required
     if (minimumPowDifficulty.value == 0) {
       // No POW required, send message directly
       final nostrEvent = Nip01Event(
-        pubKey: ndk.accounts.getPublicKey()!,
+        pubKey: pubkey,
         kind: kind,
         tags: [
           [tag, room],
           if (nTag != null) ["n", nTag],
           if (includeClientTag.value) ["client", appTitle],
         ],
-        content: sendFieldController.text,
+        content: content,
+        // ndk hashes its own now() when createdAt is left out, so the id can
+        // end up signed over a different second than the event carries
+        createdAt: DateTime.now().millisecondsSinceEpoch ~/ 1000,
       );
       ndk.broadcast.broadcast(nostrEvent: nostrEvent);
-      sendFieldController.clear();
-      sendFieldFocusNode.requestFocus();
+      addMessage(roomKey, nostrEvent);
       return;
     }
 
@@ -232,7 +265,7 @@ class Repository extends GetxController {
 
     while (minedEvent == null) {
       final nostrEvent = Nip01Event(
-        pubKey: ndk.accounts.getPublicKey()!,
+        pubKey: pubkey,
         kind: kind,
         tags: [
           [tag, room],
@@ -240,7 +273,7 @@ class Repository extends GetxController {
           if (includeClientTag.value) ["client", appTitle],
           ["nonce", nonce.toString(), targetDifficulty.toString()],
         ],
-        content: sendFieldController.text,
+        content: content,
         createdAt: DateTime.now().millisecondsSinceEpoch ~/ 1000,
       );
 
@@ -259,8 +292,7 @@ class Repository extends GetxController {
     }
 
     ndk.broadcast.broadcast(nostrEvent: minedEvent);
-    sendFieldController.clear();
-    sendFieldFocusNode.requestFocus();
+    addMessage(roomKey, minedEvent);
   }
 
   Future<void> fetchMuteList() async {
