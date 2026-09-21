@@ -58,7 +58,7 @@ class ChatLargeLayout extends StatelessWidget {
                             ),
                           ),
                           actions: [
-                            if (Repository.ndk.accounts.isNotLoggedIn)
+                            if (!AuthController.to.isLoggedIn)
                               TextButton(
                                 onPressed: () {
                                   Get.to(LoginScreen());
@@ -68,8 +68,8 @@ class ChatLargeLayout extends StatelessWidget {
                                       "Login",
                                 ),
                               ),
-                            if (Repository.ndk.accounts.isLoggedIn)
-                              ProfilePictureButtonView(),
+                            SizedBox(width: 8),
+                            ProfilePictureButtonView(),
                             SizedBox(width: 8),
                             if (!kIsWeb &&
                                 (Platform.isWindows ||
@@ -86,7 +86,7 @@ class ChatLargeLayout extends StatelessWidget {
                         ),
                       ),
                       Expanded(child: ChatView()),
-                      if (Repository.ndk.accounts.isLoggedIn) SendFieldView(),
+                      SendFieldView(),
                     ],
                   );
                 },

@@ -51,6 +51,8 @@ void main() async {
   await ndkFlutter.restoreAccountsState();
 
   Get.put(AuthController());
+  await AuthController.to.ensureAccount();
+
   Get.put(Repository());
   Get.put(ThemeController());
 

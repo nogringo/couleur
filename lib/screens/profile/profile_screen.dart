@@ -27,7 +27,9 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 NUserProfile(
                   ndkFlutter: Repository.ndkFlutter,
-                  onLogout: () {
+                  showLogoutButton: !AuthController.to.isAnonymous,
+                  onLogout: () async {
+                    await AuthController.to.ensureAccount();
                     Get.back();
                     AuthController.to.update();
                   },

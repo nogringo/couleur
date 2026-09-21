@@ -4,6 +4,7 @@ import 'package:ndk/ndk.dart';
 import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:couleur/config.dart';
+import 'package:couleur/controllers/auth_controller.dart';
 import 'package:couleur/models/mute_list.dart';
 
 class Repository extends GetxController {
@@ -187,10 +188,12 @@ class Repository extends GetxController {
   }
 
   Future<void> sendMessage() async {
-    final pubkey = ndk.accounts.getPublicKey();
-
-    if (pubkey == null) return;
     if (sendFieldController.text.isEmpty) return;
+
+    await AuthController.to.ensureAccount();
+
+    final pubkey = ndk.accounts.getPublicKey();
+    if (pubkey == null) return;
 
     String? nTag;
     final metadata = await ndk.metadata.loadMetadata(pubkey);

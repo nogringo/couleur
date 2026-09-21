@@ -53,7 +53,7 @@ class ChatSmallLayout extends StatelessWidget {
                   ),
                 ),
                 actions: [
-                  if (Repository.ndk.accounts.isNotLoggedIn)
+                  if (!AuthController.to.isLoggedIn)
                     TextButton(
                       onPressed: () {
                         Get.to(LoginScreen());
@@ -62,8 +62,8 @@ class ChatSmallLayout extends StatelessWidget {
                         AppLocalizations.of(context)?.login ?? "Login",
                       ),
                     ),
-                  if (Repository.ndk.accounts.isLoggedIn)
-                    ProfilePictureButtonView(),
+                  SizedBox(width: 8),
+                  ProfilePictureButtonView(),
                   SizedBox(width: 8),
                   if (!kIsWeb &&
                       (Platform.isWindows ||

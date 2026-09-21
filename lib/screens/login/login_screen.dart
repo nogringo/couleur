@@ -20,7 +20,8 @@ class LoginScreen extends StatelessWidget {
             child: NLogin(
               ndkFlutter: Repository.ndkFlutter,
               enablePubkeyLogin: false,
-              onLoggedIn: () {
+              onLoggedIn: () async {
+                await AuthController.to.dropAnonymousAccount();
                 Get.back();
                 AuthController.to.update();
               },
