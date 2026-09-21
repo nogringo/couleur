@@ -1,7 +1,7 @@
 import 'package:couleur/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
+import 'package:couleur/utils/navigation.dart';
 import 'package:ndk_flutter/ndk_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(leading: BackButton(onPressed: goBack)),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Align(
@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
               enablePubkeyLogin: false,
               onLoggedIn: () async {
                 await AuthController.to.dropAnonymousAccount();
-                Get.back();
+                goBack();
                 AuthController.to.update();
               },
             ),

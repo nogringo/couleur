@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:couleur/repository.dart';
-import 'package:couleur/screens/login/login_screen.dart';
+import 'package:couleur/routes.dart';
 import 'package:couleur/widgets/chat_view.dart';
 import 'package:couleur/widgets/profile_picture_button_view.dart';
 import 'package:couleur/widgets/send_field_view.dart';
@@ -61,7 +61,7 @@ class ChatLargeLayout extends StatelessWidget {
                             if (!AuthController.to.isLoggedIn)
                               TextButton(
                                 onPressed: () {
-                                  Get.to(LoginScreen());
+                                  Get.toNamed(Routes.login);
                                 },
                                 child: Text(
                                   AppLocalizations.of(context)?.login ??

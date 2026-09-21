@@ -1,5 +1,6 @@
 import 'package:couleur/controllers/auth_controller.dart';
 import 'package:couleur/repository.dart';
+import 'package:couleur/utils/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ndk_flutter/ndk_flutter.dart';
@@ -26,7 +27,7 @@ class ProfileHeader extends StatelessWidget {
           showLogoutButton: !AuthController.to.isAnonymous,
           onLogout: () async {
             await AuthController.to.ensureAccount();
-            Get.back();
+            goBack();
             AuthController.to.update();
           },
         ),

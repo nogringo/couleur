@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:ndk/ndk.dart';
 import 'package:couleur/repository.dart';
 import 'package:couleur/controllers/theme_controller.dart';
-import 'package:couleur/screens/chat/chat_screen.dart';
+import 'package:couleur/routes.dart';
 import 'package:couleur/l10n/app_localizations.dart';
 import 'package:ndk_flutter/l10n/app_localizations.dart' as ndk_flutter;
 import 'package:ndk_flutter/ndk_flutter.dart';
@@ -102,7 +102,8 @@ class MainApp extends StatelessWidget {
             theme: getTheme(),
             darkTheme: getTheme(Brightness.dark),
             themeMode: ThemeController.to.themeMode,
-            home: ChatScreen(),
+            initialRoute: Routes.chat,
+            getPages: appPages,
           ),
         );
 

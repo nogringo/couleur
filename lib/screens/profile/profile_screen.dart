@@ -1,6 +1,7 @@
 import 'package:couleur/config.dart';
 import 'package:couleur/l10n/app_localizations.dart';
 import 'package:couleur/repository.dart';
+import 'package:couleur/utils/navigation.dart';
 import 'package:couleur/widgets/github_icon_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
     final pubkey = Repository.ndk.accounts.getPublicKey();
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(leading: BackButton(onPressed: goBack)),
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
